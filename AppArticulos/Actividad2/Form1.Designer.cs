@@ -73,7 +73,7 @@
             this.btnAgregarArticulo.Name = "btnAgregarArticulo";
             this.btnAgregarArticulo.Size = new System.Drawing.Size(148, 23);
             this.btnAgregarArticulo.TabIndex = 3;
-            this.btnAgregarArticulo.Text = "Agregar articulo";
+            this.btnAgregarArticulo.Text = "Agregar";
             this.btnAgregarArticulo.UseVisualStyleBackColor = true;
             this.btnAgregarArticulo.Click += new System.EventHandler(this.btnAgregarArticulo_Click);
             // 
@@ -83,7 +83,7 @@
             this.btnEliminarArticulo.Name = "btnEliminarArticulo";
             this.btnEliminarArticulo.Size = new System.Drawing.Size(148, 23);
             this.btnEliminarArticulo.TabIndex = 4;
-            this.btnEliminarArticulo.Text = "Eliminar articulo";
+            this.btnEliminarArticulo.Text = "Eliminar";
             this.btnEliminarArticulo.UseVisualStyleBackColor = true;
             this.btnEliminarArticulo.Click += new System.EventHandler(this.btnEliminarArticulo_Click);
             // 
@@ -93,7 +93,7 @@
             this.btnModificarArticulo.Name = "btnModificarArticulo";
             this.btnModificarArticulo.Size = new System.Drawing.Size(148, 23);
             this.btnModificarArticulo.TabIndex = 5;
-            this.btnModificarArticulo.Text = "Modificar articulo";
+            this.btnModificarArticulo.Text = "Modificar";
             this.btnModificarArticulo.UseVisualStyleBackColor = true;
             this.btnModificarArticulo.Click += new System.EventHandler(this.btnModificarArticulo_Click);
             // 

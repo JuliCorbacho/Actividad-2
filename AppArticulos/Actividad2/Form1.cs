@@ -53,7 +53,8 @@ namespace Actividad2
 
         private void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
-            //Agregar articulo
+            frmAltaArticulo alta = new frmAltaArticulo();
+            alta.ShowDialog();
         }
 
         private void btnModificarArticulo_Click(object sender, EventArgs e)
