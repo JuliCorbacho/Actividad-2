@@ -12,7 +12,7 @@ namespace Actividad2
 {
     public partial class frmArticulos : Form
     {
-        //private List<Articulo> listaArticulo;
+        private List<Article> listaArticulo;
 
         public frmArticulos()
         {
@@ -21,9 +21,9 @@ namespace Actividad2
 
         private void frmArticulos_Load(object sender, EventArgs e)
         {
-            //ArticuloNegocio negocio = new ArticuloNegocio();
-            //listaArticulo = negocio.listar();
-            //dgvArticulos.DataSource = listaArticulo
+            ArticleList negocio = new ArticleList();
+            //listaArticulo = negocio.Show();
+            dgvArticulos.DataSource = negocio.Show();
             //cargarImagen(listaArticulo[0].UrlImagen);
         }
 
