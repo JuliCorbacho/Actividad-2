@@ -165,6 +165,7 @@
             // 
             // cbMarca
             // 
+            this.cbMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMarca.FormattingEnabled = true;
             this.cbMarca.Location = new System.Drawing.Point(93, 126);
             this.cbMarca.Name = "cbMarca";
@@ -173,6 +174,7 @@
             // 
             // cbCategoria
             // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategoria.FormattingEnabled = true;
             this.cbCategoria.Location = new System.Drawing.Point(93, 159);
             this.cbCategoria.Name = "cbCategoria";
@@ -201,6 +203,7 @@
             this.Controls.Add(this.lbNombre);
             this.Name = "frmAltaArticulo";
             this.Text = "Nuevo Articulo";
+            this.Load += new System.EventHandler(this.frmAltaArticulo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

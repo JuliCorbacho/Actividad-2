@@ -29,24 +29,40 @@ namespace Actividad2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //Articulo nuevoArt = new Articulo ();
-            //ArticuloNegocio negocio = new ArticuloNegocio();
+            Article nuevoArt = new Article ();
+            ArticleList negocio = new ArticleList();
 
             try
             {
-                //Articulo.Codigo = txtCodigo.Text;
-                //Articulo.Nombre = txtNombre.Text;
-                //Articulo.Descripcion = txtDescripcion.Text;
-                //Articulo.Marca = cbMarca.Text;
-                //Articulo.Categoria = cbCategoria.Text;
-                //Articulo.Precio = int.Parse(txtPrecio.Text);
+                nuevoArt.code = txtCodigo.Text;
+                nuevoArt.name = txtNombre.Text;
+                nuevoArt.description = txtDescripcion.Text;
+                nuevoArt.brand = (Marca)cbMarca.SelectedItem;
+                nuevoArt.category = (Categoria)cbCategoria.SelectedItem;
+                nuevoArt.price = int.Parse(txtPrecio.Text);
 
-                //negocio.Agregar(nuevoArt);
-                //MessageBox.Show("Articulo agregado exitosamente");
+                negocio.Add(nuevoArt);
+                MessageBox.Show("Articulo agregado exitosamente");
                 Close();
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void frmAltaArticulo_Load(object sender, EventArgs e)
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            try
+            {
+                cbMarca.DataSource = marcaNegocio.listar();
+                cbCategoria.DataSource = categoriaNegocio.listar();
+            }
+            catch (Exception ex)
+            {
+
                 MessageBox.Show(ex.ToString());
             }
         }

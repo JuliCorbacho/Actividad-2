@@ -33,7 +33,7 @@ namespace Actividad2
             //cargarImagen(itemSeleccionado.UrlImagen);
         }
 
-        private void cargarImagen(string image)
+        private void cargarImagen(string imagen)
         {
             try
             {

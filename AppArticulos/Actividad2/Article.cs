@@ -11,8 +11,8 @@ namespace Actividad2
 		public string code { get; set; }
 		public string name { get; set; }
 		public string description { get; set; }
-		public int brand { get; set; }
-		public int category { get; set; }
+		public Marca brand { get; set; }
+		public Categoria category { get; set; }
 		public string img { get; set; }
 		public decimal price { get; set; }
 		public Article()

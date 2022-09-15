@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 
 namespace Actividad2
 {
@@ -19,7 +20,7 @@ namespace Actividad2
 
             try
             {
-                conn.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true";
+               conn.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true";
                 com.CommandType = System.Data.CommandType.Text;
                 com.CommandText = "Select Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio from ARTICULOS";
                 com.Connection=conn;
@@ -33,8 +34,10 @@ namespace Actividad2
                     aux.code = (string)lector["Codigo"];
                     aux.name = (string)lector["Nombre"];
                     aux.description = (string)lector["Descripcion"];
-                    aux.brand = (int)lector["IdMarca"];
-                    aux.category = (int)lector["IdCategoria"];
+                    aux.brand = new Marca();
+                    aux.brand.Id = (int)lector["IdMarca"];
+                    aux.category = new Categoria();
+                    aux.category.Id = (int)lector["IdCategoria"];
                     aux.img = (string)lector["ImagenUrl"];
                     aux.price = (decimal)lector["Precio"];
 
@@ -49,6 +52,28 @@ namespace Actividad2
             catch(Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public void Add(Article newArticle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setQuery("Insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)values(" + newArticle.code + ", '" + newArticle.name + "', '" + newArticle.description + "', 1, @idBrand, @idCategory, @urlImagen)" + "'" + newArticle.price + "'");
+                datos.setearParametro("@idBrand", newArticle.brand.Id);
+                datos.setearParametro("@idDebilidad", newArticle.category.Id);
+                datos.setearParametro("@urlImagen", newArticle.img);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }
