@@ -19,30 +19,42 @@ namespace Actividad2
             InitializeComponent();
         }
 
-        private void frmArticulos_Load(object sender, EventArgs e)
+        private void load()
         {
             ArticleList negocio = new ArticleList();
-            //listaArticulo = negocio.Show();
-            dgvArticulos.DataSource = negocio.Show();
-            //cargarImagen(listaArticulo[0].UrlImagen);
+            try
+            {
+                listaArticulo = negocio.Show();
+                dgvArticulos.DataSource = negocio.Show();
+                dgvArticulos.Columns["img"].Visible = false;
+                cargarImagen(listaArticulo[0].img);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void frmArticulos_Load(object sender, EventArgs e)
+        {
+            load();
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
-            //Articulo itemSeleccionado = (Articulo) dgvArticulos.CurrentRow.DataBoundItem;
-            //cargarImagen(itemSeleccionado.UrlImagen);
+            Article itemSeleccionado = (Article) dgvArticulos.CurrentRow.DataBoundItem;
+            cargarImagen(itemSeleccionado.img);
         }
 
         private void cargarImagen(string imagen)
         {
             try
             {
-                //pbxArticulo.Load(imagen);
+                pbxArticulo.Load(imagen);
             }
             catch (Exception ex)
             {
 
-                //pbxArticulo.Load("https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-sin-imagen-en-miniatura-marcador-de-posici%C3%B3n-para-foros-blogs-y-sitios-web.jpg?ver=6");
+                pbxArticulo.Load("https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-sin-imagen-en-miniatura-marcador-de-posici%C3%B3n-para-foros-blogs-y-sitios-web.jpg?ver=6");
             }
         }
 
@@ -55,6 +67,8 @@ namespace Actividad2
         {
             frmAltaArticulo alta = new frmAltaArticulo();
             alta.ShowDialog();
+            load();
+
         }
 
         private void btnModificarArticulo_Click(object sender, EventArgs e)

@@ -22,7 +22,7 @@ namespace Actividad2
             {
                conn.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true";
                 com.CommandType = System.Data.CommandType.Text;
-                com.CommandText = "Select Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio from ARTICULOS";
+                com.CommandText = "Select A.Id, Codigo, Nombre, A.Descripcion, ImagenUrl, Precio, M.Descripcion as Marca, C.Descripcion as Categoria \r\nfrom ARTICULOS A, MARCAS M, CATEGORIAS C\r\nWhere A.IdMarca = M.Id and A.IdCategoria = C.Id";
                 com.Connection=conn;
 
                 conn.Open();
@@ -35,10 +35,11 @@ namespace Actividad2
                     aux.name = (string)lector["Nombre"];
                     aux.description = (string)lector["Descripcion"];
                     aux.brand = new Marca();
-                    aux.brand.Id = (int)lector["IdMarca"];
+                    aux.brand.Descripcion = (string)lector["Marca"];
                     aux.category = new Categoria();
-                    aux.category.Id = (int)lector["IdCategoria"];
-                    aux.img = (string)lector["ImagenUrl"];
+                    aux.category.Descripcion = (string)lector["Categoria"];
+                    if (!(lector["ImagenUrl"] is DBNull))
+                        aux.img = (string)lector["ImagenUrl"];
                     aux.price = (decimal)lector["Precio"];
 
                     list.Add(aux); 
@@ -61,10 +62,10 @@ namespace Actividad2
 
             try
             {
-                datos.setQuery("Insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)values(" + newArticle.code + ", '" + newArticle.name + "', '" + newArticle.description + "', 1, @idBrand, @idCategory, @urlImagen)" + "'" + newArticle.price + "'");
+                datos.setQuery("Insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)values('" + newArticle.code + "','" + newArticle.name + "','" + newArticle.description + "', @idBrand, @idCategory, @ImagenUrl,'" + newArticle.price + "')");
                 datos.setearParametro("@idBrand", newArticle.brand.Id);
-                datos.setearParametro("@idDebilidad", newArticle.category.Id);
-                datos.setearParametro("@urlImagen", newArticle.img);
+                datos.setearParametro("@idCategory", newArticle.category.Id);
+                datos.setearParametro("@ImagenUrl", newArticle.img);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

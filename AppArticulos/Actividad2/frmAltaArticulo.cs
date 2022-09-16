@@ -39,6 +39,7 @@ namespace Actividad2
                 nuevoArt.description = txtDescripcion.Text;
                 nuevoArt.brand = (Marca)cbMarca.SelectedItem;
                 nuevoArt.category = (Categoria)cbCategoria.SelectedItem;
+                nuevoArt.img = txtURLimagen.Text;
                 nuevoArt.price = int.Parse(txtPrecio.Text);
 
                 negocio.Add(nuevoArt);
@@ -65,6 +66,24 @@ namespace Actividad2
 
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbxArticulo.Load(imagen);
+            }
+            catch (Exception ex)
+            {
+
+                pbxArticulo.Load("https://us.123rf.com/450wm/mathier/mathier1905/mathier190500002/134557216-sin-imagen-en-miniatura-marcador-de-posici%C3%B3n-para-foros-blogs-y-sitios-web.jpg?ver=6");
+            }
+        }
+
+        private void txtURLimagen_Leave(object sender, EventArgs e)
+        {
+            cargarImagen(txtURLimagen.Text);
         }
     }
 }
