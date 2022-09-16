@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Actividad2
+namespace Dominio
 {
-    internal class Article
+    public class Article
     {
-		[DisplayName("Código")]
+        public int Id { get; set; }
+
+        [DisplayName("Código")]
 		public string code { get; set; }
 
         [DisplayName("Artículo")]

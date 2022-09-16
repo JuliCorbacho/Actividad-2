@@ -43,28 +43,32 @@
             // 
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvArticulos.Location = new System.Drawing.Point(12, 52);
+            this.dgvArticulos.Location = new System.Drawing.Point(16, 64);
+            this.dgvArticulos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.RowHeadersWidth = 51;
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvArticulos.Size = new System.Drawing.Size(716, 386);
+            this.dgvArticulos.Size = new System.Drawing.Size(955, 475);
             this.dgvArticulos.TabIndex = 0;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
             // 
             // pbxArticulo
             // 
-            this.pbxArticulo.Location = new System.Drawing.Point(744, 54);
+            this.pbxArticulo.Location = new System.Drawing.Point(992, 66);
+            this.pbxArticulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbxArticulo.Name = "pbxArticulo";
-            this.pbxArticulo.Size = new System.Drawing.Size(206, 186);
+            this.pbxArticulo.Size = new System.Drawing.Size(275, 229);
             this.pbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxArticulo.TabIndex = 1;
             this.pbxArticulo.TabStop = false;
             // 
             // btnDetalles
             // 
-            this.btnDetalles.Location = new System.Drawing.Point(769, 246);
+            this.btnDetalles.Location = new System.Drawing.Point(1025, 303);
+            this.btnDetalles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDetalles.Name = "btnDetalles";
-            this.btnDetalles.Size = new System.Drawing.Size(157, 28);
+            this.btnDetalles.Size = new System.Drawing.Size(209, 34);
             this.btnDetalles.TabIndex = 2;
             this.btnDetalles.Text = "Ver detalles";
             this.btnDetalles.UseVisualStyleBackColor = true;
@@ -72,19 +76,21 @@
             // 
             // btnAgregarArticulo
             // 
-            this.btnAgregarArticulo.Location = new System.Drawing.Point(580, 23);
+            this.btnAgregarArticulo.Location = new System.Drawing.Point(773, 28);
+            this.btnAgregarArticulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAgregarArticulo.Name = "btnAgregarArticulo";
-            this.btnAgregarArticulo.Size = new System.Drawing.Size(148, 23);
-            this.btnAgregarArticulo.TabIndex = 3;
+            this.btnAgregarArticulo.Size = new System.Drawing.Size(197, 28);
+            this.btnAgregarArticulo.TabIndex = 1;
             this.btnAgregarArticulo.Text = "Agregar";
             this.btnAgregarArticulo.UseVisualStyleBackColor = true;
             this.btnAgregarArticulo.Click += new System.EventHandler(this.btnAgregarArticulo_Click);
             // 
             // btnEliminarArticulo
             // 
-            this.btnEliminarArticulo.Location = new System.Drawing.Point(734, 415);
+            this.btnEliminarArticulo.Location = new System.Drawing.Point(979, 511);
+            this.btnEliminarArticulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEliminarArticulo.Name = "btnEliminarArticulo";
-            this.btnEliminarArticulo.Size = new System.Drawing.Size(148, 23);
+            this.btnEliminarArticulo.Size = new System.Drawing.Size(197, 28);
             this.btnEliminarArticulo.TabIndex = 4;
             this.btnEliminarArticulo.Text = "Eliminar";
             this.btnEliminarArticulo.UseVisualStyleBackColor = true;
@@ -92,10 +98,11 @@
             // 
             // btnModificarArticulo
             // 
-            this.btnModificarArticulo.Location = new System.Drawing.Point(734, 386);
+            this.btnModificarArticulo.Location = new System.Drawing.Point(979, 475);
+            this.btnModificarArticulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnModificarArticulo.Name = "btnModificarArticulo";
-            this.btnModificarArticulo.Size = new System.Drawing.Size(148, 23);
-            this.btnModificarArticulo.TabIndex = 5;
+            this.btnModificarArticulo.Size = new System.Drawing.Size(197, 28);
+            this.btnModificarArticulo.TabIndex = 3;
             this.btnModificarArticulo.Text = "Modificar";
             this.btnModificarArticulo.UseVisualStyleBackColor = true;
             this.btnModificarArticulo.Click += new System.EventHandler(this.btnModificarArticulo_Click);
@@ -104,17 +111,18 @@
             // 
             this.lbArticulos.AutoSize = true;
             this.lbArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbArticulos.Location = new System.Drawing.Point(12, 9);
+            this.lbArticulos.Location = new System.Drawing.Point(16, 11);
+            this.lbArticulos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbArticulos.Name = "lbArticulos";
-            this.lbArticulos.Size = new System.Drawing.Size(119, 31);
-            this.lbArticulos.TabIndex = 6;
+            this.lbArticulos.Size = new System.Drawing.Size(148, 39);
+            this.lbArticulos.TabIndex = 0;
             this.lbArticulos.Text = "Articulos";
             // 
             // frmArticulos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(958, 450);
+            this.ClientSize = new System.Drawing.Size(1277, 554);
             this.Controls.Add(this.lbArticulos);
             this.Controls.Add(this.btnModificarArticulo);
             this.Controls.Add(this.btnEliminarArticulo);
@@ -122,6 +130,7 @@
             this.Controls.Add(this.btnDetalles);
             this.Controls.Add(this.pbxArticulo);
             this.Controls.Add(this.dgvArticulos);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmArticulos";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmArticulos_Load);

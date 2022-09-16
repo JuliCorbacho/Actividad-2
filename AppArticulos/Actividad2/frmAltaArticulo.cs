@@ -7,14 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Actividad2
 {
     public partial class frmAltaArticulo : Form
     {
+        private Article article = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
+        }
+
+        public frmAltaArticulo(Article art)
+        {
+            InitializeComponent();
+            this.article = art;
+            Text = "Modificar Articulo";
+
         }
 
         private void lbNombre_Click(object sender, EventArgs e)
@@ -29,21 +40,33 @@ namespace Actividad2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Article nuevoArt = new Article ();
             ArticleList negocio = new ArticleList();
 
             try
-            {
-                nuevoArt.code = txtCodigo.Text;
-                nuevoArt.name = txtNombre.Text;
-                nuevoArt.description = txtDescripcion.Text;
-                nuevoArt.brand = (Marca)cbMarca.SelectedItem;
-                nuevoArt.category = (Categoria)cbCategoria.SelectedItem;
-                nuevoArt.img = txtURLimagen.Text;
-                nuevoArt.price = int.Parse(txtPrecio.Text);
+            {   if(article == null)
+                {
+                    article = new Article();
+                    article.Id = 0;
+                }
+                article.code = txtCodigo.Text;
+                article.name = txtNombre.Text;
+                article.description = txtDescripcion.Text;
+                article.brand = (Marca)cbMarca.SelectedItem;
+                article.category = (Categoria)cbCategoria.SelectedItem;
+                article.img = txtURLimagen.Text;
+                article.price = decimal.Parse(txtPrecio.Text);
 
-                negocio.Add(nuevoArt);
-                MessageBox.Show("Articulo agregado exitosamente");
+                if(article.Id == 0)
+                {
+                    negocio.Add(article);
+                    MessageBox.Show("Articulo agregado exitosamente");
+                }
+                else
+                {
+                    negocio.Modify(article);
+                    MessageBox.Show("Articulo modificado exitosamente");
+                }
+
                 Close();
             }
             catch (Exception ex)
@@ -59,7 +82,24 @@ namespace Actividad2
             try
             {
                 cbMarca.DataSource = marcaNegocio.listar();
+                cbMarca.ValueMember = "Id";
+                cbMarca.DisplayMember = "Descripcion";
                 cbCategoria.DataSource = categoriaNegocio.listar();
+                cbCategoria.ValueMember = "Id";
+                cbCategoria.DisplayMember = "Descripcion";
+
+                if (article != null)
+                {
+                    txtCodigo.Text = article.code;
+                    txtNombre.Text = article.name;
+                    txtDescripcion.Text = article.description;
+                    txtURLimagen.Text = article.img;
+                    cargarImagen(article.img);
+                    txtPrecio.Text = article.price.ToString();
+                    cbMarca.SelectedValue = article.brand.Id;
+                    cbCategoria.SelectedValue = article.category.Id;
+
+                }
             }
             catch (Exception ex)
             {

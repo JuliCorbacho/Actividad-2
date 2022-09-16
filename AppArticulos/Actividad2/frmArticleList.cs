@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
 
 namespace Actividad2
 {
@@ -25,8 +27,9 @@ namespace Actividad2
             try
             {
                 listaArticulo = negocio.Show();
-                dgvArticulos.DataSource = negocio.Show();
+                dgvArticulos.DataSource = listaArticulo;
                 dgvArticulos.Columns["img"].Visible = false;
+                dgvArticulos.Columns["Id"].Visible = false;
                 cargarImagen(listaArticulo[0].img);
             }
             catch (Exception ex)
@@ -73,13 +76,38 @@ namespace Actividad2
 
         private void btnModificarArticulo_Click(object sender, EventArgs e)
         {
-            //Modificar articulo
-        }
+            Article selection;
+            selection = (Article) dgvArticulos.CurrentRow.DataBoundItem;
+            frmAltaArticulo modify = new frmAltaArticulo(selection);
+            modify.ShowDialog();
+            load();
+        } 
 
         private void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
-            //Eliminar articulo
-        }
+            ArticleList articles = new ArticleList();
+            Article selection;
 
+            try
+            {   
+                //Se consulta al usuario si realmente desea eliminar el articulo de forma permanente
+                DialogResult opt=MessageBox.Show("Esta acción eliminará permanentemente el registro, ¿Desea continuar?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question );
+
+                if (opt == DialogResult.Yes)
+                {
+                    selection = (Article)dgvArticulos.CurrentRow.DataBoundItem;
+                    articles.Drop(selection.Id);
+                    load();
+                    MessageBox.Show("Eliminado correctamente");
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+
+        }
     }
 }
