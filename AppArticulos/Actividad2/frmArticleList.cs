@@ -40,6 +40,67 @@ namespace Actividad2
         private void frmArticulos_Load(object sender, EventArgs e)
         {
             load();
+            cargarCbBuscarPor();
+        }
+
+        private void cargarCbBuscarPor()
+        {
+            cbBuscarPor.Items.Add("Código");
+            cbBuscarPor.Items.Add("Nombre artículo");
+            cbBuscarPor.Items.Add("Descripción");
+            //cbBuscarPor.Items.Add("Marca");
+            //cbBuscarPor.Items.Add("Categoría");
+            cbBuscarPor.Items.Add("Precio");
+        }
+
+        private void cargarCbCriterio()
+        {
+            string opcion = cbBuscarPor.SelectedItem.ToString();
+            if (opcion == "Código" || opcion == "Nombre artículo" || opcion == "Descripción")
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Igual a");
+                cbCriterio.Items.Add("Contiene");
+                cbCriterio.Items.Add("Comienza con");
+                cbCriterio.Items.Add("Termina con");
+            }
+            if (opcion == "Precio")
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Igual a");
+                cbCriterio.Items.Add("Mayor a");
+                cbCriterio.Items.Add("Menor a");
+            }
+            /*if (opcion == "Marca")
+            {
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                try
+                {
+                    cbCriterio.DataSource = marcaNegocio.listar();
+                    cbCriterio.ValueMember = "Id";
+                    cbCriterio.DisplayMember = "Descripcion";
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            if (opcion == "Categoría")
+            {
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                try
+                {
+                    cbCriterio.DataSource = categoriaNegocio.listar();
+                    cbCriterio.ValueMember = "Id";
+                    cbCriterio.DisplayMember = "Descripcion";
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
+            }*/
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
@@ -108,6 +169,30 @@ namespace Actividad2
 
             }
 
+        }
+
+        private void cbBuscarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarCbCriterio();
+        }
+
+        private void btBuscar_Click(object sender, EventArgs e)
+        {
+            ArticleList lista = new ArticleList();
+
+            try
+            {
+                string buscarPor = cbBuscarPor.SelectedItem.ToString();
+                string criterio = cbCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+
+                dgvArticulos.DataSource = lista.filtrar(buscarPor, criterio, filtro);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
