@@ -176,15 +176,58 @@ namespace Actividad2
             cargarCbCriterio();
         }
 
+        private bool validarFiltro()
+        {
+            if (cbBuscarPor.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccionar el campo que desea filtrar.");
+                return true;
+            }
+            if (cbCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccionar el criterio con el desea filtrar.");
+                return true;
+            }
+            if (cbBuscarPor.SelectedItem.ToString() == "Precio")
+            {
+                if (string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("Cargar filtro para númericos");
+                    return true;
+                }
+                if (!(soloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Debe cargar un número");
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
+        }
+
         private void btBuscar_Click(object sender, EventArgs e)
         {
             ArticleList lista = new ArticleList();
 
             try
             {
+                if (validarFiltro())
+                    return;
+
                 string buscarPor = cbBuscarPor.SelectedItem.ToString();
                 string criterio = cbCriterio.SelectedItem.ToString();
-                string filtro = txtFiltro.Text;
+                string filtro = txtFiltro.Text.ToLower();
 
                 dgvArticulos.DataSource = lista.filtrar(buscarPor, criterio, filtro);
             }
@@ -193,6 +236,11 @@ namespace Actividad2
 
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void lbLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            load();
         }
     }
 }

@@ -140,11 +140,13 @@ namespace Negocio
         public List<Article> filtrar(string buscarPor, string criterio, string filtro)
         {
             List<Article> lista = new List<Article>();
-            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos data = new AccesoDatos();
+
+            string consulta = "Select A.Id, Codigo, Nombre, A.Descripcion, ImagenUrl, Precio, M.Descripcion as Marca, C.Descripcion as Categoria,IdMarca ,idCategoria  \r\nfrom ARTICULOS A, MARCAS M, CATEGORIAS C\r\nWhere A.IdMarca = M.Id and A.IdCategoria = C.Id and ";
 
             try
             {
-                string consulta = "Select A.Id, Codigo, Nombre, A.Descripcion, Precio, M.Descripcion as Marca, C.Descripcion as Categoria from ARTICULOS A, MARCAS M, CATEGORIAS C Where A.IdMarca = M.Id and A.IdCategoria = C.Id and ";
+                
                 if (buscarPor == "Precio")
                 {
                     switch (criterio)
@@ -178,45 +180,49 @@ namespace Negocio
                     switch (criterio)
                     {
                         case "Igual a":
-                            consulta += campo + "like '" + filtro + "'";
+                            consulta += campo + " like '" + filtro + "'";
                             break;
                         case "Contiene":
-                            consulta += campo + "like '%" + filtro + "%'";
+                            consulta += campo + " like '%" + filtro + "%'";
                             break;
                         case "Comienza con":
-                            consulta += campo + "like '%" + filtro + "'";
+                            consulta += campo + " like '" + filtro + "%'";
                             break;
                         case "Termina con":
-                            consulta += campo + "like '" + filtro + "%'";
+                            consulta += campo + " like '%" + filtro + "'";
                             break;
                     }
                 }
 
-                datos.setQuery(consulta);
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
+                data.setQuery(consulta);
+                data.ejecutarLectura();
+                while (data.Lector.Read())
                 {
                     //Se cargan los articulos de la base y verifico Null en todos los campos (dado que la tabla acepta NULLS)
                     Article aux = new Article();
-                    aux.Id = (int)datos.Lector["Id"];
-                    if (!(datos.Lector["Codigo"] is DBNull))
-                        aux.code = (string)datos.Lector["Codigo"];
-                    if (!(datos.Lector["Nombre"] is DBNull))
-                        aux.name = (string)datos.Lector["Nombre"];
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                        aux.description = (string)datos.Lector["Descripcion"];
-                    aux.brand = new Marca();
-                    aux.brand.Id = (int)datos.Lector["IdMarca"];
-                    if (!(datos.Lector["Marca"] is DBNull))
-                        aux.brand.Descripcion = (string)datos.Lector["Marca"];
+                    aux.Id = (int)data.Lector["Id"];
+                    if (!(data.Lector["Codigo"] is DBNull))
+                        aux.code = (string)data.Lector["Codigo"];
+                    if (!(data.Lector["Nombre"] is DBNull))
+                        aux.name = (string)data.Lector["Nombre"];
+                    if (!(data.Lector["Descripcion"] is DBNull))
+                        aux.description = (string)data.Lector["Descripcion"];
+
                     aux.category = new Categoria();
-                    aux.category.Id = (int)datos.Lector["idCategoria"];
-                    if (!(datos.Lector["Categoria"] is DBNull))
-                        aux.category.Descripcion = (string)datos.Lector["Categoria"];
-                    if (!(datos.Lector["ImagenUrl"] is DBNull))
-                        aux.img = (string)datos.Lector["ImagenUrl"];
-                    if (!(datos.Lector["Precio"] is DBNull))
-                        aux.price = (decimal)datos.Lector["Precio"];
+                    aux.category.Id = (int)data.Lector["idCategoria"];
+                    if (!(data.Lector["Categoria"] is DBNull))
+
+                        aux.brand = new Marca();
+                    aux.brand.Id = (int)data.Lector["IdMarca"];
+                    if (!(data.Lector["Marca"] is DBNull))
+                        aux.brand.Descripcion = (string)data.Lector["Marca"];
+
+                    
+                        aux.category.Descripcion = (string)data.Lector["Categoria"];
+                    if (!(data.Lector["ImagenUrl"] is DBNull))
+                        aux.img = (string)data.Lector["ImagenUrl"];
+                    if (!(data.Lector["Precio"] is DBNull))
+                        aux.price = (decimal)data.Lector["Precio"];
 
                     //Se agrega el registro leído a la lista de articulos
                     lista.Add(aux);
@@ -226,8 +232,11 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
+            }
+            finally
+            {   //se cierra la conección a DB
+                data.cerrarConexion();
             }
         }
     }
