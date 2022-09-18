@@ -30,6 +30,8 @@ namespace Actividad2
                 dgvArticulos.DataSource = listaArticulo;
                 dgvArticulos.Columns["img"].Visible = false;
                 dgvArticulos.Columns["Id"].Visible = false;
+                dgvArticulos.Columns["Description"].Visible = false;
+                dgvArticulos.Columns["Code"].Visible = false;
                 cargarImagen(listaArticulo[0].img);
             }
             catch (Exception ex)
@@ -46,6 +48,13 @@ namespace Actividad2
         {
             Article itemSeleccionado = (Article) dgvArticulos.CurrentRow.DataBoundItem;
             cargarImagen(itemSeleccionado.img);
+            tbCode.Text=itemSeleccionado.code;
+            tbName.Text=itemSeleccionado.name;
+            tbBrand.Text = itemSeleccionado.brand.Descripcion;
+            tbCategory.Text= itemSeleccionado.category.Descripcion;
+            tbDescription.Text = itemSeleccionado.description;
+
+
         }
 
         private void cargarImagen(string imagen)
@@ -108,6 +117,36 @@ namespace Actividad2
 
             }
 
+        }
+
+        private void tsbAgregar_Click(object sender, EventArgs e)
+        {
+            btnAgregarArticulo_Click(sender, e);
+        }
+
+        private void Eliminar_Click(object sender, EventArgs e)
+        {
+            btnEliminarArticulo_Click(sender, e);
+        }
+
+        private void tsbModificar_Click(object sender, EventArgs e)
+        {
+            btnModificarArticulo_Click(sender, e);
+        }
+
+        private void borrarRegistroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnEliminarArticulo_Click(sender, e);
+        }
+
+        private void agregarRegistroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnAgregarArticulo_Click(sender, e);
+        }
+
+        private void modificarRegistroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnModificarArticulo_Click(sender, e);
         }
     }
 }

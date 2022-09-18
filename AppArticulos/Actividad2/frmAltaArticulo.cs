@@ -28,10 +28,6 @@ namespace Actividad2
 
         }
 
-        private void lbNombre_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -39,8 +35,11 @@ namespace Actividad2
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
-        {
+        {   
+            //agrego una flag para verificar si el código de articulo se repite o no
+            int flag = 0;
             ArticleList negocio = new ArticleList();
+            List<Article> checkCode = negocio.Show();
 
             try
             {   if(article == null)
@@ -48,6 +47,7 @@ namespace Actividad2
                     article = new Article();
                     article.Id = 0;
                 }
+                
                 article.code = txtCodigo.Text;
                 article.name = txtNombre.Text;
                 article.description = txtDescripcion.Text;
@@ -56,18 +56,59 @@ namespace Actividad2
                 article.img = txtURLimagen.Text;
                 article.price = decimal.Parse(txtPrecio.Text);
 
-                if(article.Id == 0)
-                {
-                    negocio.Add(article);
-                    MessageBox.Show("Articulo agregado exitosamente");
-                }
-                else
-                {
-                    negocio.Modify(article);
-                    MessageBox.Show("Articulo modificado exitosamente");
+                foreach(Article item in checkCode)
+                {   
+                    //para verificar si el código se repite, paso todo a mayuscula (dado que si se ingresa un lowercase el programa detecta los códigos como diferentes
+                    //también verifico que el articulo que esté dando conflicto por el codigo repetido no tenga el mismo ID que el que estoy intentando modificar
+
+                    if (item.code.ToUpper() == article.code.ToUpper() && item.Id!=article.Id && article.code!="")
+
+                    {   //si el codigo se repite cambio la flag para que el registro no se guarde
+                        MessageBox.Show("El código ingresado pertenece a otro articulo activo", "verificación de código", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        flag = 1;
+                        break;
+                    }
+
                 }
 
-                Close();
+                if (flag==0)
+                    {
+                    //verifico que el precio sea mayor a 0
+                    if (article.price < 0)
+                    {
+                        MessageBox.Show("Recuerde que el campo precio debe ser completado con un número mayor o igual a 0", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    //se consulta al usuario si desea guardar su registro aún sin contar con datos en algunos de los campos
+                    if ((article.name == "" || article.code == "" || article.description == "" || article.img == ""))
+                    {
+                        DialogResult opt = MessageBox.Show("Hay uno o más campos sin información, ¿Desea cargar el registro de todas maneras?", "Información incompleta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (opt == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    if (article.Id == 0)
+                     {
+                         negocio.Add(article);
+                         MessageBox.Show("Articulo agregado exitosamente");
+                     }
+                     else
+                     {
+                         negocio.Modify(article);
+                         MessageBox.Show("Articulo modificado exitosamente");
+                     }
+                     Close();
+
+                 }
+
+
+            }
+            //excepción por ingreso de precio incorrecto (formato erroneo)
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Recuerde que el campo precio debe ser completado con un número mayor o igual a 0", "Error de formato",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
