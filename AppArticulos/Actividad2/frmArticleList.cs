@@ -279,6 +279,7 @@ namespace Actividad2
 
         private void lbLimpiarFiltro_Click(object sender, EventArgs e)
         {
+            txtFiltro.Text = "";
             load();
         }
     }
